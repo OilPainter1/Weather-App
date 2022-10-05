@@ -1,0 +1,13 @@
+body{
+    background-color: antiquewhite;
+}
+header{
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    background-color: darkseagreen;
+    font-weight: bold;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    border-radius: 5px;
+
+}
