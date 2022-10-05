@@ -1,6 +1,4 @@
-body{
-    background-color: antiquewhite;
-}
+
 header{
     padding: 50px;
     display: flex;
@@ -10,4 +8,11 @@ header{
     font-family:Georgia, 'Times New Roman', Times, serif;
     border-radius: 5px;
 
+}
+#searchButton{
+    margin-top: 10px;
+}
+.card{
+    margin-left: 10px;
+    margin-top: 10px;
 }
