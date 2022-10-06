@@ -35,3 +35,30 @@ header{
 #weatherDisplay{
     display: flex;
 }
+#results{
+    max-width: 200px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+#resultsFirstDiv {
+    background-color: blanchedalmond;
+    margin: 10px;
+    box-shadow: 4px;
+}
+.searchItems{
+    background-color:darkgoldenrod;
+    padding-left: 40px;
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: lighter;
+    font-family: 'Times New Roman', Times, serif;
+}
+.searchItems:hover{
+    color:coral;
+    cursor: pointer;
+    background-color: saddlebrown;
+    
+
+}
