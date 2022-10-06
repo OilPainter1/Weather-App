@@ -27,8 +27,11 @@ header{
 }
 
 #weatherBar{
-    display: flex;
+    display:flex;
     justify-content: flex-start;
     padding: 10px;
     
+}
+#weatherDisplay{
+    display: flex;
 }
