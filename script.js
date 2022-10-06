@@ -40,6 +40,8 @@ function loadWeatherForecast(data){
         WeatherBarDiv.appendChild(weatherDayForecast)
         weatherDayForecast.textContent=moment.unix(data.list[i].dt).format("MMMM Do YYYY, h:mm a")
         weatherDayForecast.style.padding="10px"
+        weatherDayForecast.style.margin="5px"
+        weatherDayForecast.style.backgroundColor="Linen"
 
         
         
