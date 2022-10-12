@@ -1,17 +1,27 @@
 var APIKey = "b0dae24107c6909617e7f4fbbd653e80"
+var searches = []
+for (var i = 0; i<localStorage.length;i++){
+    searches[i]=localStorage.getItem(localStorage.key(i))
+}
+loadLocalStorage()
+
 
 var searchBtn = document.getElementById("searchButton")
 
     function handleSearch(){
+        console.log(searches[0])
+        
         var searchedWeather= document.querySelector("input").value
         removeWeatherForecastBlocks()
     
         fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + searchedWeather +"&appid=" + APIKey)
             .then(function(response){
+                console.log(response)
                 var jsonData= response.json()
                 return jsonData 
             })
             .then(function(data){
+                
                 var lat = data[0].lat
                 var lon = data[0].lon
                 fetch("http://api.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=" + APIKey + "&units=imperial")
@@ -49,7 +59,25 @@ var searchBtn = document.getElementById("searchButton")
             document.querySelector("input").value = data.city.name
             handleSearch()
         })
+        localStorage.setItem("search" +":" + data.city.name, data.city.name)
+        
     }
+
+   function loadLocalStorage() {
+    for(var i =0; i <localStorage.length;i++){
+        var element=document.createElement("div")
+        
+        var recentSearchItem= document.getElementById("results").appendChild(element)
+        recentSearchItem.setAttribute("class","searchItems")
+        recentSearchItem.textContent=localStorage.getItem(localStorage.key(i))
+        recentSearchItem.addEventListener("click",function(){
+            document.querySelector("input").value = recentSearchItem.textContent
+            handleSearch()
+        })
+
+    }
+    }
+   
 
     function removeWeatherForecastBlocks(){
         if(document.getElementById("weatherDisplay").firstChild!=null){
@@ -60,5 +88,6 @@ var searchBtn = document.getElementById("searchButton")
             return
         }
     }
+
 
 searchBtn.addEventListener("click",handleSearch)
