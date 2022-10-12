@@ -10,7 +10,7 @@ loadLocalStorage()
 var searchBtn = document.getElementById("searchButton")
 
     function handleSearch(){
-        console.log(searches[0])
+        
         
         var searchedWeather= document.querySelector("input").value
         removeWeatherForecastBlocks()
@@ -31,6 +31,7 @@ var searchBtn = document.getElementById("searchButton")
                     return jsonData
                 })
                 .then(function(data){
+                    console.log(data)
                     loadWeatherForecast(data)
                     addSearchToRecentSearches(data)
                 })
@@ -41,11 +42,24 @@ var searchBtn = document.getElementById("searchButton")
         for(var i=0;i<40;i=i+8){
             var weatherDayForecast= document.createElement("div")
             var WeatherBarDiv=document.getElementById("weatherDisplay")
+            weatherDayForecast.style.fontSize="Medium"
+            weatherDayForecast.style.fontWeight="bold"           
+            weatherDayForecast.style.maxWidth="150px"
+            weatherDayForecast.style.color="black"
+            var link = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon +"@2x.png"
+            weatherDayForecast.style.backgroundImage="url(" + link +")"
             WeatherBarDiv.appendChild(weatherDayForecast)
-            weatherDayForecast.textContent=data.city.name +": " + moment.unix(data.list[i].dt).format("MMMM Do YYYY, h:mm a") +" Temp: " + data.list[i].main.temp
+            
+            
+            
+            
+            
+            weatherDayForecast.textContent=data.city.name +": " + moment.unix(data.list[i].dt).format("MMMM Do YYYY, h:mm a") 
+               + " Temp: " + data.list[i].main.temp + " Wind Speed: " 
+               + data.list[i].wind.speed + " mph Humidity: " + data.list[i].main.humidity + "%"
             weatherDayForecast.style.padding="10px"
             weatherDayForecast.style.margin="5px"
-            weatherDayForecast.style.backgroundColor="Linen"
+            weatherDayForecast.style.backgroundColor="bisque"
 
         }
     }
