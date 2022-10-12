@@ -15,7 +15,7 @@ var searchBtn = document.getElementById("searchButton")
         var searchedWeather= document.querySelector("input").value
         removeWeatherForecastBlocks()
     
-        fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + searchedWeather +"&appid=" + APIKey)
+        fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + searchedWeather +"&appid=" + APIKey)
             .then(function(response){
                 console.log(response)
                 var jsonData= response.json()
@@ -25,7 +25,7 @@ var searchBtn = document.getElementById("searchButton")
                 
                 var lat = data[0].lat
                 var lon = data[0].lon
-                fetch("http://api.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=" + APIKey + "&units=imperial")
+                fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=" + APIKey + "&units=imperial")
                 .then(function(response){
                     jsonData=response.json()
                     return jsonData
