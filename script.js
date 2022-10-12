@@ -72,7 +72,7 @@ var searchBtn = document.getElementById("searchButton")
         recentSearchItem.setAttribute("class","searchItems")
         recentSearchItem.textContent=localStorage.getItem(localStorage.key(i))
         recentSearchItem.addEventListener("click",function(){
-            document.querySelector("input").value = recentSearchItem.textContent
+            document.querySelector("input").value = this.textContent
             handleSearch()
         })
 
