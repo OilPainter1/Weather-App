@@ -1,5 +1,6 @@
 var APIKey = "b0dae24107c6909617e7f4fbbd653e80"
 var searches = []
+
 for (var i = 0; i<localStorage.length;i++){
     searches[i]=localStorage.getItem(localStorage.key(i))
 }
@@ -91,3 +92,10 @@ var searchBtn = document.getElementById("searchButton")
 
 
 searchBtn.addEventListener("click",handleSearch)
+
+function clear(){
+    localStorage.clear()
+}
+
+document.querySelector("#clearSearchHistory").addEventListener("click",clear)
+    
