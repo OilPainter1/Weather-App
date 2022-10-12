@@ -95,6 +95,10 @@ searchBtn.addEventListener("click",handleSearch)
 
 function clear(){
     localStorage.clear()
+    var searchResults=document.getElementById("results")
+    while(searchResults.lastChild.textContent != "Recent Searches:"){
+        searchResults.removeChild(searchResults.lastChild)
+    }
 }
 
 document.querySelector("#clearSearchHistory").addEventListener("click",clear)
