@@ -14,67 +14,80 @@ var searchBtn = document.getElementById("searchButton")
         
         var searchedWeather= document.querySelector("input").value
         removeWeatherForecastBlocks()
-    
-        fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + searchedWeather +"&appid=" + APIKey)
+
+     
+            fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + searchedWeather +"&appid=" + APIKey)
             .then(function(response){
-                console.log(response)
                 var jsonData= response.json()
                 return jsonData 
             })
             .then(function(data){
-                
                 var lat = data[0].lat
                 var lon = data[0].lon
-                fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=" + APIKey + "&units=imperial")
+                fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + lat +"&lon=" + lon + "&appid=" + APIKey + "&units=imperial")
                 .then(function(response){
                     jsonData=response.json()
                     return jsonData
                 })
                 .then(function(data){
-                    console.log(data)
                     loadWeatherForecast(data)
                     addSearchToRecentSearches(data)
                 })
             })
+
+      
     }
 
     function loadWeatherForecast(data){
-        for(var i=0;i<40;i=i+8){
+        
             var weatherDayForecast= document.createElement("div")
             var WeatherBarDiv=document.getElementById("weatherDisplay")
+            var locationHeader = document.createElement("h2")
+            var timeHeader = document.createElement("h4")
+            var tempHeader = document.createElement("h4")
+            var windHeader = document.createElement("h4")
+            var humidityHeader = document.createElement("h4")
+
+            
+            humidityHeader.textContent = "Humidity: " + data.main.humidity + "%"
+            tempHeader.innerHTML = "Temperature: " + data.main.temp + " &#8457;"
+            timeHeader.textContent = moment.unix(data.dt).format("MMMM Do YYYY, h:mm a")
+            locationHeader.textContent = data.name
+            windHeader.textContent = "Wind speed: " + data.wind.speed + " mph"
+
+            var dataHeaders = [locationHeader,timeHeader,tempHeader,windHeader,humidityHeader]
+
+            dataHeaders.forEach(Header => {
+                weatherDayForecast.appendChild(Header)
+            });
+
             weatherDayForecast.style.fontSize="Medium"
             weatherDayForecast.style.fontWeight="bold"           
-            weatherDayForecast.style.maxWidth="150px"
+            weatherDayForecast.style.maxWidth="400px"
             weatherDayForecast.style.color="black"
-            var link = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon +"@2x.png"
-            weatherDayForecast.style.backgroundImage="url(" + link +")"
-            WeatherBarDiv.appendChild(weatherDayForecast)
-            
-            
-            
-            
-            
-            weatherDayForecast.textContent=data.city.name +": " + moment.unix(data.list[i].dt).format("MMMM Do YYYY, h:mm a") 
-               + " Temp: " + data.list[i].main.temp + " Wind Speed: " 
-               + data.list[i].wind.speed + " mph Humidity: " + data.list[i].main.humidity + "%"
             weatherDayForecast.style.padding="10px"
             weatherDayForecast.style.margin="5px"
             weatherDayForecast.style.backgroundColor="bisque"
 
-        }
+            WeatherBarDiv.setAttribute("class","container")
+
+            WeatherBarDiv.appendChild(weatherDayForecast)
+
+        
     }
+    
 
     function addSearchToRecentSearches(data){
         var element=document.createElement("div")
         
         var recentSearchItem= document.getElementById("results").appendChild(element)
         recentSearchItem.setAttribute("class","searchItems")
-        recentSearchItem.textContent=data.city.name
+        recentSearchItem.textContent=data.name
         recentSearchItem.addEventListener("click",function(){
-            document.querySelector("input").value = data.city.name
+            document.querySelector("input").value = data.name
             handleSearch()
         })
-        localStorage.setItem("search" +":" + data.city.name, data.city.name)
+        localStorage.setItem("search" +":" + data.name, data.name)
         
     }
 
@@ -96,9 +109,7 @@ var searchBtn = document.getElementById("searchButton")
 
     function removeWeatherForecastBlocks(){
         if(document.getElementById("weatherDisplay").firstChild!=null){
-            for(var i= 0;i<5;i++){
-                document.getElementById("weatherDisplay").removeChild(document.getElementById("weatherDisplay").firstChild)
-            }
+                document.getElementById("weatherDisplay").removeChild(document.getElementById("weatherDisplay").firstChild) 
         } else{
             return
         }
