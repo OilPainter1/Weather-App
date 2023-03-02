@@ -39,7 +39,7 @@ var searchBtn = document.getElementById("searchButton")
     }
 
     function loadWeatherForecast(data){
-        
+            console.log(data)
             var weatherDayForecast= document.createElement("div")
             var WeatherBarDiv=document.getElementById("weatherDisplay")
             var locationHeader = document.createElement("h2")
@@ -47,6 +47,7 @@ var searchBtn = document.getElementById("searchButton")
             var tempHeader = document.createElement("h4")
             var windHeader = document.createElement("h4")
             var humidityHeader = document.createElement("h4")
+            var weatherHeader = document.createElement("h4")
 
             
             humidityHeader.textContent = "Humidity: " + data.main.humidity + "%"
@@ -54,8 +55,9 @@ var searchBtn = document.getElementById("searchButton")
             timeHeader.textContent = moment.unix(data.dt).format("MMMM Do YYYY, h:mm a")
             locationHeader.textContent = data.name
             windHeader.textContent = "Wind speed: " + data.wind.speed + " mph"
+            weatherHeader.textContent = "Weather: " + data.weather[0].main 
 
-            var dataHeaders = [locationHeader,timeHeader,tempHeader,windHeader,humidityHeader]
+            var dataHeaders = [locationHeader,timeHeader,tempHeader,weatherHeader,windHeader,humidityHeader]
 
             dataHeaders.forEach(Header => {
                 weatherDayForecast.appendChild(Header)
