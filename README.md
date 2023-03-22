@@ -5,7 +5,7 @@ If I want to know the weather of a certain city so that I can plan accordingly, 
 ## Running the app:
 - Visit: https://oilpainter1.github.io/Weather-App/
 
-## technologies Used:
+## Technologies Used:
 - HTML
 - CSS
 - JavaScript
